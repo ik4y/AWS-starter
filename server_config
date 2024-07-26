@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Update the software on your EC2 instance
+sudo dnf update -y
+
+# Install Node.js 18 using nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install 18
+
+# Install PostgreSQL 15
+sudo dnf install -y postgresql15-server
+sudo /usr/pgsql-15/bin/postgresql-15-setup initdb
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+
+# Install Git
+sudo dnf install -y git
+
+# Install HTTPD
+sudo dnf install -y httpd
+sudo systemctl enable httpd
+sudo systemctl start httpd
+
+echo "Installation complete!"
