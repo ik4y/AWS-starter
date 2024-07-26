@@ -1,19 +1,18 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("promises", "postgres", "lethal", {
-	host: "localhost",
-	port: 5432,
-	dialect: "postgres",
+const sequelize = new Sequelize(process.env.DATABASE, process.env.DB_USERNAME, process.env.DB_PASS, {
+	host: 'localhost',
+	dialect: 'postgres'
+
 });
 
-function connectDB(req, res, next) {
+function connectDB() {
 	sequelize
 		.authenticate()
 		.then(() => {
 			console.log("Connection has been established successfully.");
 		})
 		.catch((error) => {
-			next(error);
 			console.error("Unable to connect to the database:", error);
 		});
 }
